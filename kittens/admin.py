@@ -18,7 +18,8 @@ class KittenAdmin(admin.ModelAdmin):
 
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
-    list_display = ("kitten_link", "user", "rating")
+    list_display = ("id", "kitten_link", "user", "rating")
+    list_display_links = ("id", "kitten_link")
     list_filter = ("kitten", "user", "rating")
 
     @admin.display(description="Котенок")
