@@ -34,7 +34,7 @@ class BreedListView(ListCreateAPIView):
     def get_permissions(self):
         if self.request.method == "POST":
             return [IsAdminUser()]
-        return super().get_permissions()
+        return []
 
 
 @extend_schema_view(
@@ -66,7 +66,7 @@ class KittenListCreateView(ListCreateAPIView):
     def get_permissions(self):
         if self.request.method == "POST":
             return [IsAuthenticated()]
-        return super().get_permissions()
+        return []
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -123,7 +123,7 @@ class RatingCreateView(CreateAPIView):
     def get_permissions(self):
         if self.request.method == "POST":
             return [IsAuthenticated()]
-        return super().get_permissions()
+        return []
 
 
 @extend_schema_view(
