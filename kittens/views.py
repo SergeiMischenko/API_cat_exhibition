@@ -55,7 +55,7 @@ class BreedListView(ListCreateAPIView):
 class KittenListCreateView(ListCreateAPIView):
     queryset = Kitten.objects.annotate(
         average_rating=Avg("rating_kitten__rating")
-    ).order_by("id")
+    ).select_related("breed", "owner").prefetch_related("rating_kitten").order_by("id")
     filterset_fields = ["breed"]
 
     def get_serializer_class(self):
@@ -95,7 +95,9 @@ class KittenListCreateView(ListCreateAPIView):
     ),
 )
 class KittenDetailUpdateDestroyView(RetrieveUpdateDestroyAPIView):
-    queryset = Kitten.objects.annotate(average_rating=Avg("rating_kitten__rating"))
+    queryset = Kitten.objects.annotate(
+        average_rating=Avg("rating_kitten__rating")
+    ).select_related("breed", "owner").prefetch_related("rating_kitten")
     permission_classes = [IsAuthorOrReadOnly]
 
     def get_serializer_class(self):
