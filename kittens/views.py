@@ -53,7 +53,9 @@ class BreedListView(ListCreateAPIView):
     ),
 )
 class KittenListCreateView(ListCreateAPIView):
-    queryset = Kitten.objects.annotate(average_rating=Avg("rating_kitten__rating"))
+    queryset = Kitten.objects.annotate(
+        average_rating=Avg("rating_kitten__rating")
+    ).order_by("id")
     filterset_fields = ["breed"]
 
     def get_serializer_class(self):
